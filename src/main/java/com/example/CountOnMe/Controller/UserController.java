@@ -10,7 +10,7 @@ import com.example.CountOnMe.model.User;
 import com.example.CountOnMe.repository.UserRepository;
 
 @RestController
-@RequestMapping("/users") // Same base path as your resource
+@RequestMapping("/users")
 public class UserController {
     
     private final UserRepository userRepository;
@@ -21,8 +21,8 @@ public class UserController {
 
     @GetMapping("/checkUserPassword")
     public ResponseEntity<Boolean> checkUserPassword(
-        @RequestParam String email, 
-        @RequestParam String password
+        @RequestParam("email") String email, 
+        @RequestParam("password") String password
     ){
         User user = userRepository.findUserByEmail(email);
 
