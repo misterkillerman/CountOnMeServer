@@ -55,4 +55,32 @@ public class TransactionController {
         }
         return ResponseEntity.ok().body(top3CatAndAmt);    
     }
+
+    @GetMapping("/getUserIncomeCategory")
+    public ResponseEntity<List<Map<String, Object>>> getTop3IncomeAndAmount(
+        @RequestParam("user") String user
+    ){
+        List<Transactions> transactionsList = transactionsRepository.findIncomeByUser(user);
+        List<Map<String, Object>> top3CatAndAmt = new ArrayList<>();
+
+        if (transactionsList != null && !transactionsList.isEmpty()) {
+            top3CatAndAmt = transactionsList.stream()
+                .collect(Collectors.groupingBy(
+                    Transactions::getCategory,
+                    Collectors.summingDouble(Transactions::getAmount)
+                ))
+                .entrySet().stream()
+                .sorted(Map.Entry.<String, Double>comparingByValue(Comparator.reverseOrder()))
+                .limit(3)
+                .map(entry -> {
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("category", entry.getKey());
+                    map.put("amount", entry.getValue());
+                    return map;
+                })
+                .collect(Collectors.toList());
+
+        }
+        return ResponseEntity.ok().body(top3CatAndAmt);    
+    }
 }
