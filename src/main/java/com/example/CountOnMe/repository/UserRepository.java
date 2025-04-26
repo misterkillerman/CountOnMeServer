@@ -13,7 +13,10 @@ import com.example.CountOnMe.model.User;
 public interface UserRepository extends MongoRepository<User, String> {
 
 	User findUserByName(@Param("name") String name);
-	User findUserByEmail(@Param("email") String email);
+	
+    User findUserByEmail(@Param("email") String email);
+    
     List<User> findAll();
+    
     public long count();
 } 
