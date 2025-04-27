@@ -1,1 +1,0 @@
-mongodb+srv://phuasiqi:13122001@countonme.no73z.mongodb.net/?retryWrites=true&w=majority&appName=CountOnMe
