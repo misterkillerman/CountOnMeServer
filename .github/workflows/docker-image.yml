@@ -5,6 +5,14 @@ on:
     branches:
       - main
 
+env:
+  AWS_REGION: ap-southeast-1
+  ECR_REPOSITORY: countonme-server
+  ECS_SERVICE: CountOnMe-Server-service-2y7187a8
+  ECS_CLUSTER: CountOnMe
+  ECS_TASK_DEFINITION: ./aws/taskDefinition.json
+  CONTAINER_NAME: docker
+
 jobs:    
   build:
     runs-on: ubuntu-latest
@@ -31,6 +39,17 @@ jobs:
     - name: Build Docker image
       run: |
         docker buildx build --platform linux/amd64,linux/arm64 -t 730335643718.dkr.ecr.ap-southeast-1.amazonaws.com/countonme-server --push .
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Fill in the new image ID in the Amazon ECS task definition
+      id: task-def
+      uses: aws-actions/amazon-ecs-render-task-definition@v1
+      with:
+        task-definition: ${{ env.ECS_TASK_DEFINITION }}
+        container-name: ${{ env.CONTAINER_NAME }}
+        image: ${{ steps.build-image.outputs.image }}
         
     - name: Update ECS Service
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
