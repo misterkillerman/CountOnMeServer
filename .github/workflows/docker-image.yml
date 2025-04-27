@@ -13,9 +13,9 @@ env:
   ECS_TASK_DEFINITION: ./aws/taskDefinition.json
   CONTAINER_NAME: docker
 
-jobs:    
-  build:
-    runs-on: ubuntu-latest
+jobs:
+  configure:
+  runs-on: ubuntu-latest
     steps:
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v3
@@ -27,7 +27,12 @@ jobs:
     - name: Login to Amazon ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v2 
+
       
+  build:
+    runs-on: ubuntu-latest
+    steps:
+  
     - name: Checkout code
       uses: actions/checkout@v4
       with:
@@ -38,9 +43,12 @@ jobs:
 
     - name: Build Docker image
       id: build-image
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        IMAGE_TAG: ${{ github.sha }}
       run: |
-        docker buildx build --platform linux/amd64,linux/arm64 -t 730335643718.dkr.ecr.ap-southeast-1.amazonaws.com/countonme-server --push .
-        echo "IMAGE_URL=730335643718.dkr.ecr.ap-southeast-1.amazonaws.com/countonme-server:latest" >> $GITHUB_ENV
+        docker buildx build --platform linux/amd64,linux/arm64 -t $ECR_REGISTRY/$ECR_REPOSITORY --push .
+        echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
   deploy:
     runs-on: ubuntu-latest
