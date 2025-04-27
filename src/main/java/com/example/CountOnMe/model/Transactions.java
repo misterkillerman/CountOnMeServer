@@ -1,7 +1,10 @@
 package com.example.CountOnMe.model;
 
+import java.util.Date;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 @Document("Transactions")
 public class Transactions {
@@ -11,14 +14,17 @@ public class Transactions {
     private String category;
     private String description;
     private double amount;
+    
+    @Field("date")
+    private Date date;
 
-    public Transactions(String id, String type, String category, String description, double amount) {
-        super();
+    public Transactions(String id, String type, String category, String description, double amount, Date date) {
         this.id = id;
         this.type = type;
         this.category = category;
         this.description = description;
         this.amount = amount;
+        this.date = date;
     }
     public String getId() {
         return id;
@@ -50,10 +56,16 @@ public class Transactions {
     public void setAmount(double amount) {
         this.amount = amount;
     }
+    public Date getDate() {
+        return date;
+    }
+    public void setDate(Date date) {
+        this.date = date;
+    }
     @Override
     public String toString() {
         return "Transactions [id=" + id + ", type=" + type + ", category=" + category + ", description=" + description
-                + ", amount=" + amount + "]";
+                + ", amount=" + amount + ", date=" + date + "]";
     }
 
     
