@@ -14,16 +14,19 @@ public class Transactions {
     private String category;
     private String description;
     private double amount;
-    
+    private String user;
     @Field("date")
     private Date date;
 
-    public Transactions(String id, String type, String category, String description, double amount, Date date) {
+
+    public Transactions(String id, String type, String category, String description, double amount, String user,
+            Date date) {
         this.id = id;
         this.type = type;
         this.category = category;
         this.description = description;
         this.amount = amount;
+        this.user = user;
         this.date = date;
     }
     public String getId() {
@@ -62,11 +65,18 @@ public class Transactions {
     public void setDate(Date date) {
         this.date = date;
     }
+    public String getUser() {
+        return user;
+    }
+    public void setUser(String user) {
+        this.user = user;
+    }
     @Override
     public String toString() {
         return "Transactions [id=" + id + ", type=" + type + ", category=" + category + ", description=" + description
-                + ", amount=" + amount + ", date=" + date + "]";
+                + ", amount=" + amount + ", user=" + user + ", date=" + date + "]";
     }
+
 
     
 }

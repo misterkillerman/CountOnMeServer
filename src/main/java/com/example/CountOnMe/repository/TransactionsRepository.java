@@ -43,6 +43,12 @@ public interface TransactionsRepository extends MongoRepository<Transactions, St
         @Param("endDate") Date endDate
     );
 
+    List<Transactions> findByUserAndTypeAndCategoryAndAmount(
+        @Param("user") String user, 
+        @Param("type") String type, 
+        @Param("category") String category, 
+        @Param("amount") Double amount
+    );
 
     List<Transactions> findAll();
     public long count();
