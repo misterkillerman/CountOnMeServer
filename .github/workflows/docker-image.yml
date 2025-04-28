@@ -8,6 +8,7 @@ on:
 
 env:
   AWS_REGION: ap-southeast-1
+  ECR_REGISTRY: 730335643718.dkr.ecr.ap-southeast-1.amazonaws.com
   ECR_REPOSITORY: countonme-server
   ECS_SERVICE: CountOnMe-Server-service-2y7187a8
   ECS_CLUSTER: CountOnMe
@@ -48,8 +49,6 @@ jobs:
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
       run: |
-        echo "ECR_REGISTRY = $ECR_REGISTRY"
-        echo "ECR_REPOSITORY = $ECR_REPOSITORY"
         docker buildx build --platform linux/amd64,linux/arm64 -t $ECR_REGISTRY/$ECR_REPOSITORY --push .
         echo "image=$ECR_REGISTRY/$ECR_REPOSITORY" >> $GITHUB_OUTPUT
 
