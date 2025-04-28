@@ -46,8 +46,6 @@ jobs:
 
     - name: Build Docker image
       id: build-image
-      env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
       run: |
         docker buildx build --platform linux/amd64,linux/arm64 -t $ECR_REGISTRY/$ECR_REPOSITORY --push .
         echo "image=$ECR_REGISTRY/$ECR_REPOSITORY" >> $GITHUB_OUTPUT
