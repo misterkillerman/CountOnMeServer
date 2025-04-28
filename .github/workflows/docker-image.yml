@@ -16,7 +16,7 @@ env:
   CONTAINER_NAME: docker
 
 jobs:
-  build-and-push:
+  build:
     runs-on: ubuntu-latest
     steps:
     
