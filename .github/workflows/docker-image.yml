@@ -10,7 +10,7 @@ env:
   ECR_REPOSITORY: countonme-server
   ECS_SERVICE: CountOnMe-Server-service-2y7187a8
   ECS_CLUSTER: CountOnMe
-  ECS_TASK_DEFINITION: ./aws/taskDefinition.json
+  ECS_TASK_DEFINITION: aws/taskDefinition.json
   CONTAINER_NAME: docker
 
 jobs:
@@ -71,8 +71,7 @@ jobs:
     - name: Update ECS Service
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
-        task-definition: CountOnMe-Server
-        service: CountOnMe-Server-service-2y7187a8
-        cluster: CountOnMe
+        task-definition: ${{ steps.task-def.outputs.task-definition }}
+        service: ${{ env.ECS_SERVICE }}
+        cluster: ${{ env.ECS_CLUSTER }}
         wait-for-service-stability: true
-        force-new-deployment: true
