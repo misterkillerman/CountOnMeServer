@@ -8,7 +8,7 @@ on:
 
 env:
   AWS_REGION: ap-southeast-1
-  ECR_REGISTRY: 730335643718.dkr.ecr.ap-southeast-1.amazonaws.com
+  ECR_REGISTRY_URL: 730335643718.dkr.ecr.ap-southeast-1.amazonaws.com
   ECR_REPOSITORY: countonme-server
   ECS_SERVICE: CountOnMe-Server-service-2y7187a8
   ECS_CLUSTER: CountOnMe
@@ -47,8 +47,10 @@ jobs:
     - name: Build Docker image
       id: build-image
       run: |
-        docker buildx build --platform linux/amd64,linux/arm64 -t $ECR_REGISTRY/$ECR_REPOSITORY --push .
-        echo "image=$ECR_REGISTRY/$ECR_REPOSITORY" >> $GITHUB_OUTPUT
+        docker buildx build --platform linux/amd64,linux/arm64 -t countonme-react .
+        docker tag $ECR_REPOSITORY:latest $ECR_REGISTRY_URL/$ECR_REPOSITORY:latest
+        docker push $ECR_REGISTRY_URL/$ECR_REPOSITORY:latest
+        echo "image=$ECR_REGISTRY_URL/$ECR_REPOSITORY:latest" >> $GITHUB_OUTPUT
 
   deploy:
     runs-on: ubuntu-latest
