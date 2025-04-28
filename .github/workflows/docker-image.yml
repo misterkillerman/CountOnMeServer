@@ -46,11 +46,12 @@ jobs:
 
     - name: Build Docker image
       id: build-image
+      env:
+        IMAGE_TAG: ${{ github.sha }}
       run: |
-        docker buildx build --platform linux/amd64,linux/arm64 -t countonme-react .
-        docker tag $ECR_REPOSITORY:latest $ECR_REGISTRY_URL/$ECR_REPOSITORY:latest
-        docker push $ECR_REGISTRY_URL/$ECR_REPOSITORY:latest
-        echo "image=$ECR_REGISTRY_URL/$ECR_REPOSITORY:latest" >> $GITHUB_OUTPUT
+        docker buildx build --platform linux/amd64,linux/arm64 -t $ECR_REGISTRY_URL/$ECR_REPOSITORY:latest --push .
+        echo "image=$ECR_REGISTRY_URL/$ECR_REPOSITORY:$IMAGE_TAG"
+        echo "image=$ECR_REGISTRY_URL/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
   deploy:
     runs-on: ubuntu-latest
@@ -66,7 +67,7 @@ jobs:
       with:
         task-definition: ${{ env.ECS_TASK_DEFINITION }}
         container-name: ${{ env.CONTAINER_NAME }}
-        image: ${{ env.IMAGE_URL }}
+        image: ${{ steps.build-image.outputs.image }}
         
     - name: Update ECS Service
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
