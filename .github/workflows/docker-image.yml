@@ -11,11 +11,11 @@ env:
   ECS_CLUSTER: CountOnMe
   ECR_REGISTRY_URL: 730335643718.dkr.ecr.ap-southeast-1.amazonaws.com
   ECR_TRANSACTIONS_REPOSITORY: count-on-me/transactions
-  ECS_TRANSACTIONS_SERVICE: CountOnMe-Server-service-2y7187a8
+  ECS_TRANSACTIONS_SERVICE: CountOnMe-Server-Transactions-Service
   ECS_TRANSACTIONS_TASK_DEFINITION: TransactionService/aws/taskDefinition.json
   TRANSACTIONS_CONTAINER_NAME: CountOnMe-Server-Transactions
   ECR_USERS_REPOSITORY: count-on-me/users
-  ECS_USERS_SERVICE: CountOnMe-Server-service-2y7187a8
+  ECS_USERS_SERVICE: CountOnMe-Server-Users-Service
   ECS_USERS_TASK_DEFINITION: UserService/aws/taskDefinition.json
   USERS_CONTAINER_NAME: CountOnMe-Server-Users
 
