@@ -2,7 +2,7 @@
 FROM maven:3.8.4-openjdk-17-slim AS builder
 
 # Set the working directory inside the container
-WORKDIR /app
+WORKDIR /app/UserService
 
 # Copy the pom.xml and dependencies to cache dependencies
 COPY pom.xml ./
@@ -11,7 +11,7 @@ COPY pom.xml ./
 RUN mvn dependency:go-offline -q
 
 # Copy the source code
-COPY ./UserService/src ./src
+COPY src ./src
 
 # Step 2: Build the application (maven clean install)
 RUN mvn clean package -DskipTests -q
