@@ -8,10 +8,10 @@ WORKDIR /app
 COPY pom.xml ./
 
 # Download the dependencies (this is cached unless the pom.xml changes)
-RUN mvn dependency:go-offline
+RUN mvn dependency:go-offline -q
 
 # Copy the source code
-COPY src ./src
+COPY ./TransactionService/src ./src
 
 # Step 2: Build the application (maven clean install)
 RUN mvn clean package -DskipTests -q
@@ -20,10 +20,10 @@ RUN mvn clean package -DskipTests -q
 FROM tomcat:11.0-jdk17
 
 # Copy the WAR file from the builder stage into Tomcat's webapps directory
-COPY --from=builder /app/target/CountOnMe-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/ROOT.war
+COPY --from=builder /app/target/CountOnMeTransactions-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/ROOT.war
 
 # Expose the port Tomcat is running on (default: 8080)
-EXPOSE 8080
+EXPOSE 8000
 
 # Start Tomcat server
 CMD ["catalina.sh", "run"]

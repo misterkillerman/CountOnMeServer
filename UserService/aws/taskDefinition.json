@@ -1,13 +1,13 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:ap-southeast-1:730335643718:task-definition/CountOnMe-Server:2",
+    "taskDefinitionArn": "arn:aws:ecs:ap-southeast-1:730335643718:task-definition/CountOnMe-Server-Users:1",
     "containerDefinitions": [
         {
-            "name": "docker",
-            "image": "730335643718.dkr.ecr.ap-southeast-1.amazonaws.com/countonme-server",
+            "name": "CountOnMe-Server-Users",
+            "image": "730335643718.dkr.ecr.ap-southeast-1.amazonaws.com/count-on-me/users",
             "cpu": 0,
             "portMappings": [
                 {
-                    "name": "docker-8080-tcp",
+                    "name": "countonme-server-users-8080-tcp",
                     "containerPort": 8080,
                     "hostPort": 8080,
                     "protocol": "tcp",
@@ -23,7 +23,7 @@
             "logConfiguration": {
                 "logDriver": "awslogs",
                 "options": {
-                    "awslogs-group": "/ecs/CountOnMe-Server",
+                    "awslogs-group": "/ecs/CountOnMe-Server-Users",
                     "mode": "non-blocking",
                     "awslogs-create-group": "true",
                     "max-buffer-size": "25m",
@@ -35,10 +35,10 @@
             "systemControls": []
         }
     ],
-    "family": "CountOnMe-Server",
+    "family": "CountOnMe-Server-Users",
     "executionRoleArn": "arn:aws:iam::730335643718:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
-    "revision": 2,
+    "revision": 1,
     "volumes": [],
     "status": "ACTIVE",
     "requiresAttributes": [
@@ -84,7 +84,7 @@
         "cpuArchitecture": "X86_64",
         "operatingSystemFamily": "LINUX"
     },
-    "registeredAt": "2025-04-27T15:46:05.744Z",
+    "registeredAt": "2025-05-02T15:03:15.947Z",
     "registeredBy": "arn:aws:iam::730335643718:root",
     "enableFaultInjection": false,
     "tags": []
