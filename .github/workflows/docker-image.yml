@@ -102,11 +102,11 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i private_key ${{ env.USER }}@${{ env.HOST }} <<EOF
             sudo systemctl start docker
 
-            aws ecr get-login-password --region $AWS_REGION
+            aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REGISTRY_URL
 
             echo "$ECR_REGISTRY_URL/$ECR_TRANSACTIONS_REPOSITORY:$IMAGE_TAG"
-            sudo docker pull $ECR_REGISTRY_URL/$ECR_TRANSACTIONS_REPOSITORY:$IMAGE_TAG
-            sudo docker run -d --name $DOCKER_NAME -p 8080:8080 $ECR_REGISTRY_URL/$ECR_TRANSACTIONS_REPOSITORY:$IMAGE_TAG
+            docker pull $ECR_REGISTRY_URL/$ECR_TRANSACTIONS_REPOSITORY:$IMAGE_TAG
+            docker run -d --name $DOCKER_NAME -p 8000:8000 $ECR_REGISTRY_URL/$ECR_TRANSACTIONS_REPOSITORY:$IMAGE_TAG
           EOF
 
   build-users:
