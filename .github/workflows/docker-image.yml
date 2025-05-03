@@ -94,6 +94,17 @@ jobs:
           echo "${{ env.PRIVATE_KEY }}" > private_key
           chmod 600 private_key
           ssh -o StrictHostKeyChecking=no -i private_key ${{ env.USER }}@${{ env.HOST }} <<EOF
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip awscliv2.zip
+            sudo ./aws/install
+
+            aws --version
+
+            sudo yum update -y
+            sudo yum install -y docker
+            sudo service docker start
+            sudo usermod -a -G docker ec2-user
+
             aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REGISTRY_URL
             docker pull $ECR_REGISTRY_URL/$ECR_USERS_REPOSITORY:$IMAGE_TAG
             docker stop users || true && docker rm users || true
