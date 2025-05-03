@@ -91,15 +91,14 @@ jobs:
       - uses: actions/checkout@v2
       - name: Deploy to EC2
         run: |
-          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ${USER}@${HOST} 
-          '
-          echo $AWS_REGION
-          echo "$ECR_REGISTRY_URL"
-          aws ecr describe-repositories
-          aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REGISTRY_URL;
-          docker pull $ECR_REGISTRY_URL/$ECR_USERS_REPOSITORY:$IMAGE_TAG;
-          '
+          echo "${{ secrets.PRIVATE_KEY }}" > private_key
+          chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER}@${HOST} <<EOF
+            aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REGISTRY_URL
+            docker pull $ECR_REGISTRY_URL/$ECR_USERS_REPOSITORY:$IMAGE_TAG
+            docker stop users || true && docker rm users || true
+            docker run -d --name users -p 8080:8080 $ECR_REGISTRY_URL/$ECR_USERS_REPOSITORY:$IMAGE_TAG
+          EOF
 
   build-users:
     runs-on: ubuntu-latest
