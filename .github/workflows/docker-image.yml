@@ -94,8 +94,8 @@ jobs:
           echo "${{ env.PRIVATE_KEY }}" > private_key
           chmod 600 private_key
           ssh -o StrictHostKeyChecking=no -i private_key ${{ env.USER }}@${{ env.HOST }} <<EOF
-            IMAGE_TAG=${{ needs.build-transactions.outputs.image_tag }}
-
+            IMAGE_TAG=${{ needs.build-transactions.outputs.IMAGE_TAG }}
+            echo $IMAGE_TAG
             aws --version
             docker --version
 
