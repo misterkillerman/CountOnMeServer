@@ -99,8 +99,8 @@ jobs:
           echo "${{ env.PRIVATE_KEY }}" > private_key
           chmod 600 private_key
           ssh -o StrictHostKeyChecking=no -i private_key ${{ env.USER }}@${{ env.HOST }} <<EOF
-            echo "$IMAGE_TAG"
-
+            sudo systemctl start docker
+            
             aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REGISTRY_URL
 
             echo "$ECR_REGISTRY_URL/$ECR_USERS_REPOSITORY:$IMAGE_TAG"
