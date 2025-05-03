@@ -93,6 +93,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Deploy to EC2
+        env:
+          IMAGE_TAG: ${{ github.sha }}
         run: |
           echo "${{ env.PRIVATE_KEY }}" > private_key
           chmod 600 private_key
