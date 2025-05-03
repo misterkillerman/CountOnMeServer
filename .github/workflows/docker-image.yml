@@ -94,7 +94,10 @@ jobs:
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
           ssh -o StrictHostKeyChecking=no -i private_key ${USER}@${HOST} 
           '
-          aws ecr get-login-password --region $env.AWS_REGION | docker login --username AWS --password-stdin ${{ secrets.ECR_REGISTRY_URL }};
+          echo $AWS_REGION
+          echo "$ECR_REGISTRY_URL"
+          aws ecr describe-repositories
+          aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REGISTRY_URL;
           docker pull $ECR_REGISTRY_URL/$ECR_USERS_REPOSITORY:$IMAGE_TAG;
           '
 
