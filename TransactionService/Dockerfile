@@ -5,13 +5,13 @@ FROM maven:3.8.4-openjdk-17-slim AS builder
 WORKDIR /app
 
 # Copy the pom.xml and dependencies to cache dependencies
-COPY pom.xml ./
+COPY ./TransactionService/pom.xml ./
 
 # Download the dependencies (this is cached unless the pom.xml changes)
 RUN mvn dependency:go-offline -q
 
 # Copy the source code
-COPY src ./src
+COPY ./TransactionService/src ./src
 
 # Step 2: Build the application (maven clean install)
 RUN mvn clean package -DskipTests -q
