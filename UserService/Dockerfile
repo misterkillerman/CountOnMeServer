@@ -23,7 +23,7 @@ FROM tomcat:11.0-jdk17
 COPY --from=builder /app/target/CountOnMeUsers-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/ROOT.war
 
 # Expose the port Tomcat is running on (default: 8080)
-EXPOSE 8080
+EXPOSE 5000
 
 # Start Tomcat server
 CMD ["catalina.sh", "run"]
