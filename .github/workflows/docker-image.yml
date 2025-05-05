@@ -108,7 +108,7 @@ jobs:
             docker pull $ECR_REGISTRY_URL/$ECR_TRANSACTIONS_REPOSITORY:$IMAGE_TAG
             docker stop $DOCKER_NAME
             docker rm $DOCKER_NAME
-            docker run -d --name $DOCKER_NAME -p 8080:8000 $ECR_REGISTRY_URL/$ECR_TRANSACTIONS_REPOSITORY:$IMAGE_TAG
+            docker run -d --name $DOCKER_NAME -p 8080:8080 $ECR_REGISTRY_URL/$ECR_TRANSACTIONS_REPOSITORY:$IMAGE_TAG
           EOF
 
   build-users:
@@ -192,5 +192,5 @@ jobs:
             docker pull $ECR_REGISTRY_URL/$ECR_USERS_REPOSITORY:$IMAGE_TAG
             docker stop $DOCKER_NAME
             docker rm $DOCKER_NAME
-            docker run -d --name $DOCKER_NAME -p 8081:5000 $ECR_REGISTRY_URL/$ECR_USERS_REPOSITORY:$IMAGE_TAG
+            docker run -d --name $DOCKER_NAME -p 8081:8081 $ECR_REGISTRY_URL/$ECR_USERS_REPOSITORY:$IMAGE_TAG
           EOF
