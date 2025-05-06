@@ -16,7 +16,6 @@ env:
   USER: ${{ secrets.AWS_EC2_USER }}
   
   ECR_TRANSACTIONS_REPOSITORY: count-on-me/transactions
-  ECS_TRANSACTIONS_SERVICE: CountOnMe-Server-Transactions-Service
   ECS_TRANSACTIONS_TASK_DEFINITION: TransactionService/aws/taskDefinition.json
   TRANSACTIONS_CONTAINER_NAME: CountOnMe-Server-Transactions
   ECR_USERS_REPOSITORY: count-on-me/users
