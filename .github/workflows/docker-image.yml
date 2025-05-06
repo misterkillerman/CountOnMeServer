@@ -19,7 +19,6 @@ env:
   ECS_TRANSACTIONS_TASK_DEFINITION: TransactionService/aws/taskDefinition.json
   TRANSACTIONS_CONTAINER_NAME: CountOnMe-Server-Transactions
   ECR_USERS_REPOSITORY: count-on-me/users
-  ECS_USERS_SERVICE: CountOnMe-Server-Users-Service
   ECS_USERS_TASK_DEFINITION: UserService/aws/taskDefinition.json
   USERS_CONTAINER_NAME: CountOnMe-Server-Users
 
