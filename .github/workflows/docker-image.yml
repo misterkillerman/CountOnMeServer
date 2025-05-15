@@ -105,15 +105,12 @@ jobs:
 
             echo "$ECR_REGISTRY_URL/$ECR_TRANSACTIONS_REPOSITORY:$IMAGE_TAG"
 
+            docker stop $DOCKER_NAME || true
             docker image prune -f
-            docker rmi $DOCKER_NAME || true
+            docker rmi -f $(docker images | grep "$DOCKER_NAME") || true
+            docker rm $DOCKER_NAME || true
 
             docker pull $ECR_REGISTRY_URL/$ECR_TRANSACTIONS_REPOSITORY:$IMAGE_TAG
-
-            docker tag $ECR_REGISTRY_URL/$ECR_TRANSACTIONS_REPOSITORY:$IMAGE_TAG $DOCKER_NAME
-
-            docker stop $DOCKER_NAME || true
-            docker rm $DOCKER_NAME || true
 
             docker run -d --name $DOCKER_NAME -p 8080:8080 $ECR_REGISTRY_URL/$ECR_TRANSACTIONS_REPOSITORY:$IMAGE_TAG
           EOF
@@ -196,16 +193,13 @@ jobs:
             sudo aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REGISTRY_URL
 
             echo "$ECR_REGISTRY_URL/$ECR_USERS_REPOSITORY:$IMAGE_TAG"
-
-            docker image prune -f
-            docker rmi $DOCKER_NAME || true
             
-            docker pull $ECR_REGISTRY_URL/$ECR_USERS_REPOSITORY:$IMAGE_TAG
-
-            docker tag $ECR_REGISTRY_URL/$ECR_USERS_REPOSITORY:$IMAGE_TAG $DOCKER_NAME
-
             docker stop $DOCKER_NAME || true
+            docker image prune -f
+            docker rmi -f $(docker images | grep "$DOCKER_NAME") || true
             docker rm $DOCKER_NAME || true
+
+            docker pull $ECR_REGISTRY_URL/$ECR_USERS_REPOSITORY:$IMAGE_TAG
             
             docker run -d --name $DOCKER_NAME -p 8081:8081 $ECR_REGISTRY_URL/$ECR_USERS_REPOSITORY:$IMAGE_TAG
           EOF
