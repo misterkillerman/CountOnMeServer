@@ -106,10 +106,11 @@ jobs:
             echo "$ECR_REGISTRY_URL/$ECR_TRANSACTIONS_REPOSITORY:$IMAGE_TAG"
 
             docker image prune -f
+            docker rmi $DOCKER_NAME || true
+
             docker pull $ECR_REGISTRY_URL/$ECR_TRANSACTIONS_REPOSITORY:$IMAGE_TAG
 
             docker tag $ECR_REGISTRY_URL/$ECR_TRANSACTIONS_REPOSITORY:$IMAGE_TAG $DOCKER_NAME
-            docker rmi $DOCKER_NAME || true
 
             docker stop $DOCKER_NAME || true
             docker rm $DOCKER_NAME || true
@@ -197,6 +198,8 @@ jobs:
             echo "$ECR_REGISTRY_URL/$ECR_USERS_REPOSITORY:$IMAGE_TAG"
 
             docker image prune -f
+            docker rmi $DOCKER_NAME || true
+            
             docker pull $ECR_REGISTRY_URL/$ECR_USERS_REPOSITORY:$IMAGE_TAG
 
             docker tag $ECR_REGISTRY_URL/$ECR_USERS_REPOSITORY:$IMAGE_TAG $DOCKER_NAME
