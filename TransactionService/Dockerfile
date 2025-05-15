@@ -23,7 +23,7 @@ FROM tomcat:11.0-jdk17
 COPY --from=builder /app/target/CountOnMeTransactions-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/ROOT.war
 
 # Change Tomcat's internal port
-RUN sed -i 's/Connector port="8081"/Connector address="0.0.0.0" port="8080"/' /usr/local/tomcat/conf/server.xml
+RUN sed -i 's/Connector port="8080"/Connector address="0.0.0.0" port="8080"/' /usr/local/tomcat/conf/server.xml
 
 # Expose the port Tomcat is running on (default: 8080)
 EXPOSE 8080

@@ -1,10 +1,7 @@
 com/example/CountOnMe/Controller/TransactionController.class
-com/example/CountOnMe/model/User.class
-com/example/CountOnMe/repository/UserRepository.class
 com/example/CountOnMe/repository/TransactionsRepository.class
 com/example/CountOnMe/model/Transactions.class
 com/example/CountOnMe/Config/WebConfig.class
 com/example/CountOnMe/CountOnMeApplication.class
 com/example/CountOnMe/ServletInitializer.class
 com/example/CountOnMe/Config/RestRepositoryConfig.class
-com/example/CountOnMe/Controller/UserController.class
