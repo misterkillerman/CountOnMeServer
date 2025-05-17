@@ -10,6 +10,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import com.example.CountOnMe.model.Transactions;
 
+@CrossOrigin(origins = "*")
 @RepositoryRestResource(collectionResourceRel = "transactions", path = "transactions")
 public interface TransactionsRepository extends MongoRepository<Transactions, String> {
 

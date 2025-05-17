@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.CountOnMe.model.User;
 import com.example.CountOnMe.repository.UserRepository;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/users")
 public class UserController {
