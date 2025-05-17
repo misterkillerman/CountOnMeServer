@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.CountOnMe.model.Transactions;
 import com.example.CountOnMe.repository.TransactionsRepository;
 
-@CrossOrigin(origins="http://18.141.174.174:3000/")
+@CrossOrigin
 @RestController
 @RequestMapping("/transactions")
 public class TransactionController {
@@ -110,7 +110,6 @@ public class TransactionController {
                     return map;
                 })
                 .collect(Collectors.toList());
-
         }
         return ResponseEntity.ok().body(top3CatAndAmt);    
     }
