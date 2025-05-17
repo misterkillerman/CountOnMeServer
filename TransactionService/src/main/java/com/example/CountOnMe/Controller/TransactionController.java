@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.CountOnMe.model.Transactions;
 import com.example.CountOnMe.repository.TransactionsRepository;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins="http://18.141.174.174:3000/")
 @RestController
 @RequestMapping("/transactions")
 public class TransactionController {
