@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 
 import org.apache.catalina.connector.Response;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.CountOnMe.model.Transactions;
 import com.example.CountOnMe.repository.TransactionsRepository;
 
-
+@CrossOrigin
 @RestController
 @RequestMapping("/transactions")
 public class TransactionController {
@@ -109,7 +110,6 @@ public class TransactionController {
                     return map;
                 })
                 .collect(Collectors.toList());
-
         }
         return ResponseEntity.ok().body(top3CatAndAmt);    
     }
