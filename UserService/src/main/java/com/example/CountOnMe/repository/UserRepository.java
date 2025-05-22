@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import com.example.CountOnMe.model.User;
 
 
-@CrossOrigin
+@CrossOrigin(origins = "http://54.255.162.253:3000")
 @RepositoryRestResource(collectionResourceRel = "users", path = "users")
 public interface UserRepository extends MongoRepository<User, String> {
 
